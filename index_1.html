@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Academic homepage for Austin C. Russell, Ph.D. — research, publications, grants, and teaching at the University of Cincinnati.">
+<title>Austin C. Russell</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg:#EDE6D3;
+    --bg-alt:#E3DABE;
+    --surface:#FFFDF6;
+    --ink:#22302A;
+    --ink-soft:#54635A;
+    --ink-faint:#84907F;
+    --accent:#375E43;
+    --accent-strong:#26402F;
+    --accent-2:#C08A2E;
+    --accent-2-soft:#E4D2A7;
+    --line:rgba(34,48,42,0.16);
+    --line-strong:rgba(34,48,42,0.32);
+    --shadow: 0 1px 2px rgba(23,32,27,0.06), 0 8px 24px -12px rgba(23,32,27,0.18);
+    --font-display:'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+    --font-body:'Libre Franklin', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0D1512;
+      --bg-alt:#101C17;
+      --surface:#16221C;
+      --ink:#E9E4D3;
+      --ink-soft:#AEB9AA;
+      --ink-faint:#7C8A80;
+      --accent:#74B78C;
+      --accent-strong:#94D1A8;
+      --accent-2:#E7AC55;
+      --accent-2-soft:#4A3A22;
+      --line:rgba(233,228,211,0.14);
+      --line-strong:rgba(233,228,211,0.28);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0D1512;
+    --bg-alt:#101C17;
+    --surface:#16221C;
+    --ink:#E9E4D3;
+    --ink-soft:#AEB9AA;
+    --ink-faint:#7C8A80;
+    --accent:#74B78C;
+    --accent-strong:#94D1A8;
+    --accent-2:#E7AC55;
+    --accent-2-soft:#4A3A22;
+    --line:rgba(233,228,211,0.14);
+    --line-strong:rgba(233,228,211,0.28);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.6);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;} }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent-2-soft); color:var(--ink); }
+
+  a{ color:var(--accent-strong); text-decoration-thickness:1.5px; text-underline-offset:3px; }
+  a:focus-visible, button:focus-visible, .tab:focus-visible{ outline:2px solid var(--accent-2); outline-offset:3px; border-radius:3px; }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 28px; }
+
+  h1,h2,h3,h4{ font-family:var(--font-display); font-weight:600; text-wrap:balance; margin:0; color:var(--ink); }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.09em; text-transform:uppercase;
+    color:var(--accent); font-weight:500;
+  }
+  p{ margin:0; }
+  .lede{ font-size:1.08rem; color:var(--ink-soft); max-width:62ch; }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px) saturate(140%);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:920px; margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .nav-name{ font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink); white-space:nowrap; }
+  .nav-name span{ color:var(--accent); }
+  .nav-links{ display:flex; flex-wrap:wrap; gap:2px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    display:block; padding:7px 11px; border-radius:20px; font-size:0.86rem; font-weight:500;
+    color:var(--ink-soft); text-decoration:none; transition:background 0.15s, color 0.15s;
+  }
+  .nav-links a:hover, .nav-links a.active{ background:var(--surface); color:var(--accent-strong); box-shadow:var(--shadow); }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding:64px 0 40px; position:relative; overflow:hidden; }
+  .hero::before{
+    content:""; position:absolute; inset:-20% -10% auto -10%; height:420px; z-index:-1; opacity:0.5;
+    background-image:
+      repeating-radial-gradient(circle at 15% 20%, transparent 0 34px, var(--line) 35px 36px, transparent 37px 70px),
+      repeating-radial-gradient(circle at 85% 60%, transparent 0 50px, var(--line) 51px 52px, transparent 53px 100px);
+  }
+  .hero-role{ margin-top:14px; font-size:1.15rem; color:var(--ink-soft); font-weight:500; }
+  .hero-role strong{ color:var(--ink); font-weight:600; }
+  h1.hero-title{ font-size:clamp(2.4rem, 5.4vw, 3.6rem); line-height:1.04; margin-top:8px; letter-spacing:-0.01em; }
+  .hero-thesis{ margin-top:20px; font-size:1.12rem; max-width:58ch; color:var(--ink-soft); }
+  .hero-thesis em{ font-style:italic; color:var(--ink); }
+
+  .specimen{
+    margin-top:34px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface);
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  .specimen-head{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink-faint); padding:9px 18px; border-bottom:1px dashed var(--line-strong);
+  }
+  .specimen-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
+  }
+  .specimen-item{ padding:14px 18px; border-left:1px solid var(--line); }
+  .specimen-item:first-child{ border-left:none; }
+  .specimen-label{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); }
+  .specimen-value{ margin-top:4px; font-size:0.92rem; color:var(--ink); font-weight:500; }
+  .specimen-value em{ font-style:italic; }
+
+  /* ---------- Sections ---------- */
+  section{ padding:56px 0; border-top:1px solid var(--line); }
+  section.band{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:30px; flex-wrap:wrap; }
+  .section-head h2{ font-size:1.7rem; }
+  .section-num{ font-family:var(--font-mono); font-size:0.85rem; color:var(--ink-faint); }
+
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- About ---------- */
+  .about-body{ display:grid; gap:16px; max-width:66ch; }
+  .about-body p{ color:var(--ink-soft); font-size:1.02rem; }
+  .about-body strong{ color:var(--ink); font-weight:600; }
+
+  /* ---------- Timeline ---------- */
+  .timeline{ position:relative; margin-top:8px; }
+  .timeline::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(var(--line-strong), var(--line-strong)); opacity:0.7;
+  }
+  .tl-item{ position:relative; padding:0 0 34px 38px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-dot{
+    position:absolute; left:0; top:4px; width:20px; height:20px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--accent); display:flex; align-items:center; justify-content:center;
+  }
+  .tl-dot::after{ content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); }
+  .tl-years{ font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.04em; color:var(--accent); font-weight:500; }
+  .tl-org{ font-family:var(--font-display); font-size:1.18rem; font-weight:600; margin-top:3px; }
+  .tl-role{ font-size:0.9rem; color:var(--ink-soft); font-weight:500; margin-top:1px; }
+  .tl-desc{ margin-top:8px; font-size:0.96rem; color:var(--ink-soft); max-width:60ch; }
+  .tl-desc em{ font-style:italic; }
+
+  /* ---------- Spotlight (current research) ---------- */
+  .spotlight{
+    background:var(--surface); border:1px solid var(--line-strong); border-radius:14px;
+    padding:32px 32px 28px; box-shadow:var(--shadow);
+  }
+  .spotlight h3{ font-size:1.4rem; }
+  .spotlight .lede{ margin-top:6px; }
+  .spotlight-body{ margin-top:16px; color:var(--ink-soft); font-size:1rem; max-width:64ch; }
+  .spotlight-body em{ font-style:italic; color:var(--ink); }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .tag{
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.02em; color:var(--accent-strong);
+    background:var(--accent-2-soft); border:1px solid var(--line); padding:5px 10px; border-radius:6px;
+  }
+  .vision-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:28px; }
+  @media (max-width:680px){ .vision-grid{ grid-template-columns:1fr; } }
+  .vision-card{ border:1px solid var(--line); border-radius:10px; padding:20px 22px; background:var(--surface); }
+  .vision-card h4{ font-size:1.05rem; }
+  .vision-card p{ margin-top:8px; font-size:0.92rem; color:var(--ink-soft); }
+
+  /* ---------- Publications ---------- */
+  .pub-group{ margin-top:8px; }
+  .pub-group + .pub-group{ margin-top:34px; }
+  .pub-group h3{ font-size:1.05rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); font-weight:500; }
+  .pub-list{ margin-top:16px; display:grid; gap:2px; }
+  .pub{
+    display:grid; grid-template-columns:1fr auto; gap:16px; align-items:start;
+    padding:16px 4px; border-top:1px solid var(--line);
+  }
+  .pub:first-child{ border-top:none; }
+  .pub-cite{ font-size:0.96rem; color:var(--ink); max-width:66ch; }
+  .pub-cite .au-self{ font-weight:700; }
+  .pub-cite .venue{ font-style:italic; color:var(--ink-soft); }
+  .status{
+    font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.05em; text-transform:uppercase;
+    padding:4px 9px; border-radius:20px; white-space:nowrap; height:fit-content; font-weight:500;
+  }
+  .status.published{ background:var(--accent-2-soft); color:var(--accent-strong); border:1px solid var(--line-strong); }
+  .status.accepted{ background:var(--accent-2-soft); color:var(--accent-strong); border:1px solid var(--line-strong); }
+  .status.revision{ background:transparent; color:var(--accent-2); border:1px solid var(--accent-2); }
+  .status.prep{ background:transparent; color:var(--ink-faint); border:1px dashed var(--line-strong); }
+
+  .talk{ padding:14px 4px; border-top:1px solid var(--line); font-size:0.96rem; }
+  .talk:first-child{ border-top:none; }
+  .talk .venue{ color:var(--ink-soft); font-size:0.88rem; margin-top:2px; }
+
+  /* ---------- Grants table ---------- */
+  .grant-table{ width:100%; border-collapse:collapse; margin-top:8px; font-size:0.94rem; }
+  .grant-table th{
+    text-align:left; font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.07em;
+    color:var(--ink-faint); font-weight:500; padding:0 10px 10px 10px; border-bottom:1px solid var(--line-strong);
+  }
+  .grant-table td{ padding:14px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .grant-table tr:last-child td{ border-bottom:none; }
+  .grant-name{ font-weight:600; color:var(--ink); }
+  .grant-source{ color:var(--ink-soft); font-size:0.88rem; margin-top:2px; }
+  .grant-year{ font-family:var(--font-mono); color:var(--ink-soft); white-space:nowrap; }
+  .pill{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.04em; text-transform:uppercase; padding:4px 10px; border-radius:20px; white-space:nowrap; font-weight:500; }
+  .pill.awarded{ background:var(--accent-2-soft); color:var(--accent-strong); border:1px solid var(--line-strong); }
+  .pill.applied{ background:transparent; color:var(--ink-faint); border:1px dashed var(--line-strong); }
+  .pill.pending{ background:transparent; color:var(--accent-2); border:1px solid var(--accent-2); }
+  .table-scroll{ overflow-x:auto; }
+
+  /* ---------- Teaching ---------- */
+  .teach-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:36px; align-items:start; }
+  @media (max-width:760px){ .teach-grid{ grid-template-columns:1fr; } }
+  .course-card{ border:1px solid var(--line-strong); border-radius:10px; padding:18px 20px; background:var(--surface); }
+  .course-card + .course-card{ margin-top:14px; }
+  .course-card .role{ font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent); }
+  .course-card h4{ font-size:1.05rem; margin-top:4px; }
+  .course-card .meta{ font-size:0.86rem; color:var(--ink-soft); margin-top:4px; }
+  .course-list{ margin-top:8px; font-size:0.9rem; color:var(--ink-soft); }
+  blockquote.pull{
+    font-family:var(--font-display); font-style:italic; font-size:1.28rem; line-height:1.42; color:var(--ink);
+    border-left:3px solid var(--accent-2); padding-left:22px; margin:0;
+  }
+  blockquote.pull cite{ display:block; margin-top:14px; font-family:var(--font-mono); font-style:normal; font-size:0.78rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em; }
+
+  /* ---------- Outreach & skills ---------- */
+  .outreach-list{ display:grid; gap:10px; margin-top:8px; }
+  .outreach-item{ display:grid; grid-template-columns:1fr auto; gap:12px; padding:12px 0; border-top:1px solid var(--line); font-size:0.95rem; }
+  .outreach-item:first-child{ border-top:none; }
+  .outreach-year{ font-family:var(--font-mono); font-size:0.82rem; color:var(--ink-faint); white-space:nowrap; }
+
+  .skill-cluster{ margin-top:26px; }
+  .skill-cluster:first-child{ margin-top:0; }
+  .skill-cluster h4{ font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); font-weight:500; }
+  .skill-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
+  .skill-tag{ font-size:0.84rem; padding:5px 11px; border-radius:20px; border:1px solid var(--line-strong); color:var(--ink-soft); }
+
+  /* ---------- Gallery ---------- */
+  .gallery{ display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:14px; margin-top:8px; }
+  .plate{
+    aspect-ratio:4/3; border-radius:10px; border:1px solid var(--line-strong); position:relative; overflow:hidden;
+    background:
+      repeating-linear-gradient(115deg, var(--bg-alt) 0 12px, var(--surface) 12px 24px);
+    display:flex; align-items:flex-end;
+  }
+  .plate span{
+    display:block; width:100%; padding:10px 12px; font-family:var(--font-mono); font-size:11px; letter-spacing:0.02em;
+    color:var(--ink-soft); background:color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter:blur(2px);
+  }
+
+  /* ---------- Contact / footer ---------- */
+  .contact-grid{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; }
+  .contact-email{ font-family:var(--font-display); font-size:1.5rem; }
+  .contact-note{ margin-top:10px; color:var(--ink-soft); font-size:0.94rem; max-width:48ch; }
+  footer{ padding:26px 0 40px; }
+  footer .wrap{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:0.82rem; color:var(--ink-faint); }
+  .theme-toggle{
+    font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em;
+    background:none; border:1px solid var(--line-strong); color:var(--ink-soft); padding:6px 12px; border-radius:20px; cursor:pointer;
+  }
+  .theme-toggle:hover{ color:var(--ink); border-color:var(--ink-faint); }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-name">Austin C. <span>Russell</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#grants">Grants</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#outreach">Outreach</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" type="button">Cave / Surface</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Postdoctoral Research Associate · Gross Laboratory</div>
+    <h1 class="hero-title">Austin C. Russell, Ph.D.</h1>
+    <p class="hero-role">Department of Biological Sciences, <strong>University of Cincinnati</strong> · Adjunct Instructor, <strong>Thomas More University</strong></p>
+    <p class="hero-thesis">I study how sensory systems and their resident microbes evolve — currently through taste receptor divergence in the surface- and cave-dwelling morphotypes of <em>Astyanax mexicanus</em>, and before that, through five field seasons in a chickadee hybrid zone.</p>
+
+    <div class="specimen">
+      <div class="specimen-head">Field record — current position</div>
+      <div class="specimen-grid">
+        <div class="specimen-item">
+          <div class="specimen-label">Focal taxa</div>
+          <div class="specimen-value"><em>Astyanax mexicanus</em>, <em>Poecile</em> spp.</div>
+        </div>
+        <div class="specimen-item">
+          <div class="specimen-label">Methods</div>
+          <div class="specimen-value">RNA-seq · ISH/HCR · IHC · 16S rRNA</div>
+        </div>
+        <div class="specimen-item">
+          <div class="specimen-label">Advisor</div>
+          <div class="specimen-value">Dr. Joshua B. Gross</div>
+        </div>
+        <div class="specimen-item">
+          <div class="specimen-label">Since</div>
+          <div class="specimen-value">October 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">01</span>
+        <h2>About</h2>
+      </div>
+      <div class="about-body reveal">
+        <p>Austin is a postdoctoral research associate in the <strong>Gross Laboratory</strong> at the University of Cincinnati, where he studies how sensory systems evolve — presently through taste-receptor diversification in <em>Astyanax mexicanus</em>, the Mexican cavefish, whose surface- and cave-dwelling morphotypes make it a natural experiment in adaptation to permanent darkness.</p>
+        <p>His path here has run through salamander plots in Ohio's second-growth forests, shorebird nests on the Massachusetts coast, hellbender streams in Appalachia, and five field seasons banding chickadees along a Pennsylvania hybrid zone — a route that keeps circling back to the same question: how do microbes, genes, and environment interact to shape which organisms an ecosystem keeps, and how they sense the world around them?</p>
+        <p>He completed his Ph.D. in Biology at <strong>Lehigh University</strong> under Dr. Amber M. Rice, where his dissertation examined gut microbiome diversity in hybridizing Black-capped and Carolina Chickadees, and he currently also teaches Animal Behavior as an adjunct instructor at <strong>Thomas More University</strong>. Outside the lab, he coaches high school soccer — having captained his own teams through high school and college — and works to bring hands-on science to classrooms and outreach events around greater Cincinnati.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">02</span>
+        <h2>Research journey</h2>
+      </div>
+      <p class="lede reveal">Five stops, five field systems, one throughline: how organisms and their microbiomes respond to the pressures of a specific place.</p>
+
+      <div class="timeline" style="margin-top:36px;">
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-years">2015 – 2019</div>
+          <div class="tl-org">The College of Wooster</div>
+          <div class="tl-role">Undergraduate Thesis, B.S. Biology</div>
+          <div class="tl-desc">Investigated how microhabitat differences between early-successional and mature-growth forest shaped salamander community density and composition — his first independent field project.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-years">Summer – Fall 2019</div>
+          <div class="tl-org">Massachusetts Audubon Society</div>
+          <div class="tl-role">Coastal Waterbird Field Biologist, Marshfield, MA</div>
+          <div class="tl-desc">Monitored nesting Piping Plovers and Least Terns at managed coastal sites; produced season-end reports and GIS habitat maps submitted to the U.S. Fish and Wildlife Service.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-years">Fall 2019 – May 2020</div>
+          <div class="tl-org">The Wilds Conservation Center</div>
+          <div class="tl-role">Wildlife Ecology Apprentice, Cumberland, OH</div>
+          <div class="tl-desc">Used environmental DNA to study population genetics and occupancy of the federally threatened Eastern Hellbender (<em>Cryptobranchus alleganiensis</em>) across Appalachian streams.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-years">2020 – 2025</div>
+          <div class="tl-org">Lehigh University</div>
+          <div class="tl-role">Ph.D., Biology · Advisor: Dr. Amber M. Rice</div>
+          <div class="tl-desc">Studied gut microbiome diversity across a Black-capped × Carolina Chickadee hybrid zone in eastern Pennsylvania. Banded 500+ birds over five field seasons and developed a published method for extracting microbial DNA from avian feces and preen oil, applied to roughly 230 sequenced samples.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-years">October 2025 – Present</div>
+          <div class="tl-org">University of Cincinnati</div>
+          <div class="tl-role">Postdoctoral Research Associate · Gross Laboratory</div>
+          <div class="tl-desc">Characterizing T1R and T2R taste receptor biology across surface and cave populations of <em>Astyanax mexicanus</em> using RNA-seq, in situ hybridization, and whole-mount tissue clearing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">03</span>
+        <h2>Current work</h2>
+      </div>
+      <div class="spotlight reveal">
+        <div class="eyebrow">Gross Lab · University of Cincinnati</div>
+        <h3>Taste receptor evolution in <em style="font-style:italic;">Astyanax mexicanus</em></h3>
+        <p class="lede" style="margin-top:8px;">How does a single species, having colonized total darkness on multiple independent occasions, rewrite its own sense of taste?</p>
+        <p class="spotlight-body"><em>Astyanax mexicanus</em> exists as both a river-dwelling surface fish and, independently across at least thirty cave populations in Mexico, a blind, depigmented cavefish — making it one of the best natural systems for studying repeated, rapid adaptation. Austin is mapping how T1R and T2R taste receptor genes diverge in expression between these morphotypes, using RNA-seq (Salmon quantification, DESeq2 differential expression) alongside in situ hybridization, hybridization chain reaction (HCR), and multi-antibody immunofluorescence panels paired with whole-mount DEEP-Clear tissue clearing to visualize receptor expression across gill, craniofacial, and extraoral tissue.</p>
+        <p class="spotlight-body" style="margin-top:14px;">The goal is to connect gene expression differences to the anatomical and ecological shifts that define cave adaptation — linking genotype, sensory anatomy, and the selective pressures of a lightless environment.</p>
+        <div class="tags">
+          <span class="tag">RNA-seq / DESeq2</span>
+          <span class="tag">In situ hybridization</span>
+          <span class="tag">HCR</span>
+          <span class="tag">Immunofluorescence</span>
+          <span class="tag">DEEP-Clear clearing</span>
+          <span class="tag">Confocal microscopy</span>
+        </div>
+      </div>
+
+      <div class="vision-grid">
+        <div class="vision-card reveal">
+          <h4>Pollution &amp; microbiome, Ohio River corridor</h4>
+          <p>A developing research line examining how pollution gradients along the Ohio River affect fitness and gut microbiome composition in avian and invertebrate host communities — combining long-term survival monitoring, heavy-metal analysis from feather collections, and microbiome characterization to link contaminant exposure to physiological outcomes.</p>
+        </div>
+        <div class="vision-card reveal">
+          <h4>Salamander skin microbiomes</h4>
+          <p>A return to undergraduate roots: citizen-science-integrated, long-term monitoring of regional salamander populations — spotted, eastern tiger, and red-backed — pairing population genetics with skin microbiome profiling to understand how microbial symbionts shape amphibian resilience to environmental change.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">04</span>
+        <h2>Publications &amp; presentations</h2>
+      </div>
+
+      <div class="pub-group reveal">
+        <h3>Peer-reviewed articles</h3>
+        <div class="pub-list">
+          <div class="pub">
+            <div class="pub-cite"><span class="au-self">Russell, A.C.</span>, Kenna, M.A., Van Huynh, A., &amp; Rice, A.M. (2024). "Microbial DNA extraction method for avian feces and preen oil from diverse species." <span class="venue">Ecology and Evolution</span>, 14(9), e70220.</div>
+            <div class="status published">Published</div>
+          </div>
+          <div class="pub">
+            <div class="pub-cite"><span class="au-self">Russell, A.C.</span>, Spinelli, J., Martinez, N., Taylor, S.A., Semenov, G.A., Curry, R.L., Johnsson, R.D., Roth, T., &amp; Rice, A.M. "Environment is a stronger signal than ancestry in the gut microbiome of hybridizing chickadees." <span class="venue">Ecosphere</span>.</div>
+            <div class="status accepted">Accepted</div>
+          </div>
+          <div class="pub">
+            <div class="pub-cite">Hamm, A.R., Angst, A.J., <span class="au-self">Russell, A.C.</span>, &amp; Gross, J.B. "Sensory-skeletal integration underlies diverse bone fusion patterns in a complex demography of cavefish." <span class="venue">Integrative and Comparative Biology</span>.</div>
+            <div class="status accepted">Accepted</div>
+          </div>
+          <div class="pub">
+            <div class="pub-cite">Semenov, G., Kenyon, H., Funk, E., Anderson, W., McQuillan, M., Spinelli, J., <span class="au-self">Russell, A.</span>, Martinez, N., Van Huynh, A., Alexander, A., Schweizer, R., Linck, E., Cheviron, Z., Carling, M., Roth, T., Robbins, M., Rice, A., &amp; Taylor, S. "Replicate geographic transects across a hybrid zone reveal parallelism and differences in the genetic architecture of reproductive isolation." <span class="venue">Evolution Letters</span>.</div>
+            <div class="status revision">Minor revisions</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group reveal">
+        <h3>Manuscripts in preparation</h3>
+        <div class="pub-list">
+          <div class="pub">
+            <div class="pub-cite"><span class="au-self">Russell, A.C.</span>, Spinelli, J., Martinez, N., Taylor, S.A., Semenov, G.A., Curry, R.L., &amp; Rice, A.M. "Gut microbiome diversity correlates with reversal learning in hybridizing songbirds." <span class="venue">In prep for Proceedings of the Royal Society B</span>.</div>
+            <div class="status prep">In prep</div>
+          </div>
+          <div class="pub">
+            <div class="pub-cite"><span class="au-self">Russell, A.C.</span>, Freeman, T., Karunarathne, M.A.U., Wood, B.B., &amp; Gross, J.B. "Differential expression patterns of T1R taste receptors reveal chemosensory adaptations in cave and surface populations of <em style="font-style:italic">Astyanax mexicanus</em>."</div>
+            <div class="status prep">In prep</div>
+          </div>
+          <div class="pub">
+            <div class="pub-cite">Karunarathne, M.A.U., <span class="au-self">Russell, A.C.</span>, &amp; Gross, J.B. "Cave adaptations influence extraoral gene expression: distinct metabolic reorganization and sensory reduction in <em style="font-style:italic">Astyanax mexicanus</em>."</div>
+            <div class="status prep">In prep</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group reveal">
+        <h3>Presentations &amp; invited talks</h3>
+        <div class="pub-list">
+          <div class="talk">
+            <div><strong>[Oral]</strong> "Microbiome diversity in hybridizing chickadees."</div>
+            <div class="venue">Society for Experimental Biology Annual Meeting — Prague, Czech Republic (2024)</div>
+          </div>
+          <div class="talk">
+            <div><strong>[Oral]</strong> "Host gut microbiome diversity in a chickadee hybrid zone."</div>
+            <div class="venue">Lehigh Valley Ecology and Evolution Symposium — Bethlehem, PA (2022) · Best Presentation Award</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="grants" class="band">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">05</span>
+        <h2>Grants, fellowships &amp; awards</h2>
+      </div>
+      <div class="table-scroll reveal">
+        <table class="grant-table">
+          <thead>
+            <tr><th>Award</th><th>Year</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="grant-name">Thorne Fellowship</div><div class="grant-source">Lehigh University, Dept. of Biological Sciences</div></td>
+              <td class="grant-year">2023 &amp; 2024</td>
+              <td><span class="pill awarded">Awarded</span></td>
+            </tr>
+            <tr>
+              <td><div class="grant-name">Best Presentation Award</div><div class="grant-source">Lehigh Valley Ecology and Evolution Symposium</div></td>
+              <td class="grant-year">2022</td>
+              <td><span class="pill awarded">Awarded</span></td>
+            </tr>
+            <tr>
+              <td><div class="grant-name">NSF Graduate Research Fellowship (GRFP)</div><div class="grant-source">National Science Foundation</div></td>
+              <td class="grant-year">2021</td>
+              <td><span class="pill applied">Applied</span></td>
+            </tr>
+            <tr>
+              <td><div class="grant-name">NSF Postdoctoral Research Fellowship in Biology (PRFB)</div><div class="grant-source">National Science Foundation</div></td>
+              <td class="grant-year">2025</td>
+              <td><span class="pill applied">Applied</span></td>
+            </tr>
+            <tr>
+              <td><div class="grant-name">Federal Bird Banding Permit (Master Permit)</div><div class="grant-source">U.S. Geological Survey</div></td>
+              <td class="grant-year">2026</td>
+              <td><span class="pill pending">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="teaching">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">06</span>
+        <h2>Teaching</h2>
+      </div>
+      <div class="teach-grid">
+        <div class="reveal">
+          <div class="course-card">
+            <div class="role">Sole instructor</div>
+            <h4>Animal Behavior (BIO/PSY 325)</h4>
+            <div class="meta">Thomas More University · Lecture &amp; laboratory · 12 students · Spring 2026</div>
+          </div>
+          <div class="course-card">
+            <div class="role">Teaching assistant</div>
+            <h4>Lehigh University, 2020 – 2025</h4>
+            <div class="meta">~60 students combined, across five semesters</div>
+            <div class="course-list">Animal Behavior · Biostatistics · Conservation Biology · Natural History of the Vertebrates</div>
+          </div>
+        </div>
+        <div class="reveal">
+          <blockquote class="pull">
+            "Being in school is not innately something that engages every student — however, every student has a passion for learning if you can find it."
+            <cite>From Austin's teaching philosophy</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="outreach" class="band">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">07</span>
+        <h2>Outreach, service &amp; skills</h2>
+      </div>
+
+      <div class="outreach-list reveal">
+        <div class="outreach-item"><span>Outreach Educator — Mariemont Junior High School</span><span class="outreach-year">2025–2026</span></div>
+        <div class="outreach-item"><span>Outreach Educator — Biology Day, University of Cincinnati</span><span class="outreach-year">2026</span></div>
+        <div class="outreach-item"><span>Outreach Educator — PEWS Miller Outreach Program</span><span class="outreach-year">2026</span></div>
+        <div class="outreach-item"><span>Science Fair Panel Judge — Southern Lehigh High School</span><span class="outreach-year">2022</span></div>
+        <div class="outreach-item"><span>Department Ambassador — Biological Sciences, Lehigh University</span><span class="outreach-year">2024–2025</span></div>
+        <div class="outreach-item"><span>Leadership Committee — Biological Organization of Graduate Students, Lehigh</span><span class="outreach-year">2021–2023</span></div>
+        <div class="outreach-item"><span>Assistant Varsity &amp; JV Soccer Coach — Bethlehem Catholic High School</span><span class="outreach-year">2022–2025</span></div>
+      </div>
+
+      <div class="reveal" style="margin-top:44px;">
+        <div class="skill-cluster">
+          <h4>Molecular &amp; cellular biology</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">PCR / RT-qPCR</span><span class="skill-tag">RNA-seq</span><span class="skill-tag">In situ hybridization</span>
+            <span class="skill-tag">HCR</span><span class="skill-tag">Immunohistochemistry</span><span class="skill-tag">Immunofluorescence</span>
+            <span class="skill-tag">Western blot</span><span class="skill-tag">DNA/RNA extraction</span>
+          </div>
+        </div>
+        <div class="skill-cluster">
+          <h4>Histology &amp; microscopy</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">DEEP-Clear / iDISCO+</span><span class="skill-tag">Cryosectioning</span>
+            <span class="skill-tag">Confocal &amp; fluorescence microscopy</span><span class="skill-tag">Taste bud morphometry</span><span class="skill-tag">TSA amplification</span>
+          </div>
+        </div>
+        <div class="skill-cluster">
+          <h4>Field ecology</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Mist netting &amp; box trapping</span><span class="skill-tag">Bird banding (500+ birds)</span>
+            <span class="skill-tag">eDNA collection</span><span class="skill-tag">Point counts</span><span class="skill-tag">Acoustic monitoring</span><span class="skill-tag">GPS / GIS</span>
+          </div>
+        </div>
+        <div class="skill-cluster">
+          <h4>Bioinformatics &amp; data analysis</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">R (DESeq2, phyloseq, DADA2, vegan)</span><span class="skill-tag">Python</span>
+            <span class="skill-tag">Salmon</span><span class="skill-tag">16S rRNA pipelines</span><span class="skill-tag">QGIS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">08</span>
+        <h2>Field &amp; lab</h2>
+      </div>
+      <p class="lede reveal">Photo plates — placeholders for now. See the note below for how to swap these for real images.</p>
+      <div class="gallery reveal">
+        <div class="plate"><span>Chickadee hybrid zone, PA</span></div>
+        <div class="plate"><span>Astyanax immunofluorescence</span></div>
+        <div class="plate"><span>Bird banding station</span></div>
+        <div class="plate"><span>Eastern Hellbender survey</span></div>
+        <div class="plate"><span>TMU Animal Behavior lab</span></div>
+        <div class="plate"><span>Piping Plover nest site</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="band">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">09</span>
+        <h2>Contact</h2>
+      </div>
+      <div class="contact-grid reveal">
+        <div>
+          <a class="contact-email" href="mailto:russe2an@ucmail.uc.edu">russe2an@ucmail.uc.edu</a>
+          <p class="contact-note">Department of Biological Sciences, University of Cincinnati, Cincinnati, OH 45221. Full CV available on request.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Austin C. Russell</span>
+    <span>Gross Laboratory · University of Cincinnati</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // theme toggle: cycles system -> light -> dark -> system
+  (function(){
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    var order = [null, 'light', 'dark'];
+    var i = 0;
+    btn.addEventListener('click', function(){
+      i = (i + 1) % order.length;
+      var mode = order[i];
+      if(mode){ root.setAttribute('data-theme', mode); } else { root.removeAttribute('data-theme'); }
+    });
+  })();
+
+  // scroll reveal
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){ items.forEach(function(el){ el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function(el){ io.observe(el); });
+  })();
+
+  // active nav link on scroll
+  (function(){
+    var sections = document.querySelectorAll('main section[id], header.hero');
+    var links = document.querySelectorAll('.nav-links a');
+    if(!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var id = entry.target.id;
+          links.forEach(function(l){
+            l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0, rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function(s){ if(s.id) io.observe(s); });
+  })();
+</script>
+
+</body>
+</html>
